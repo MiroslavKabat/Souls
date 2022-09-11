@@ -1,0 +1,35 @@
+* {
+  font-family: Consolas;
+  color: white;
+  padding: 0px;
+  margin: 0px;
+}
+
+.panel {
+  position: absolute;
+  z-index: 100;
+  margin: 2rem;
+}
+
+.infopanel {
+  top: 0px;
+  left: 0px;
+}
+
+.settingspanel {
+  position: absolute;
+  bottom: 0px;
+  flex-direction: column;
+  flex: content;
+}
+
+.showPointer{
+  cursor: pointer;
+}
+
+canvas {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+}
