@@ -10,44 +10,60 @@
 
 <body>
     <div id="infoPanel" class="panel infopanel"></div>
-    <div id="settingsPanel" class="panel settingspanel">
-        <div>
-            <label>Souls</label>
-            <input id="targetSoulsInput" type="number" onchange="setTargetSouls()" style="color:black"></input>
+    <div class="panel settingspanel">
+        <div id="gearPanel" class="subpanel gearpanel">
+            <a onclick="showPanel()" class="showPointer">
+                ⚙️
+            </a>
         </div>
-        <div>
-            <a onclick="setBluring()" class="showPointer"><input id="blurCheckbox" type="checkbox"> Blur</input></a>
-        </div>
-        <div>
-            <a onclick="setSparking()" class="showPointer"><input id="sparkCheckbox" type="checkbox"> Spark</input></a>
-        </div>
-        <div>
-            <a onclick="setVectors()" class="showPointer"><input id="vectorsCheckbox" type="checkbox"> Vectors</input></a>
-        </div>
-        <div>
-            <a onclick="setShowVisionRange()" class="showPointer"><input id="visionRangeCheckbox" type="checkbox"> Vision range</input></a>
-        </div>
-        <div>
-            <a onclick="setVisualConnection()" class="showPointer"><input id="visualConnectionCheckbox" type="checkbox"> Visual connection</input></a>
-        </div>
-        <div>
-            <a onclick="setDying()" class="showPointer"><input id="dyingCheckbox" type="checkbox"> Dying</input></a>
-        </div>
-        <h2>Boids</h2>
-        <div>
-            <a onclick="setSeparation()" class="showPointer"><input id="separationCheckbox" type="checkbox"> Separation</input></a>
-        </div>
-        <div>
-            <a onclick="setAlignment()" class="showPointer"><input id="alignmentCheckbox" type="checkbox"> Alignment</input></a>
-        </div>
-        <div>
-            <a onclick="setCohesion()" class="showPointer"><input id="cohesionCheckbox" type="checkbox"> Cohesion</input></a>
-        </div>
-        <div>
-            <a onclick="setAvoidCollision()" class="showPointer"><input id="collisionCheckbox" type="checkbox"> Collisions</input></a>
+        <div id="settingsPanel" class="subpanel settingspanel">
+            <div>
+                <label>Souls</label>
+                <input id="targetSoulsInput" type="number" onchange="setTargetSouls()" style="color:black"></input>
+            </div>
+            <div>
+                <a onclick="setBluring()" class="showPointer"><input id="blurCheckbox" type="checkbox"> Blur</input></a>
+            </div>
+            <div>
+                <a onclick="setSparking()" class="showPointer"><input id="sparkCheckbox" type="checkbox">
+                    Spark</input></a>
+            </div>
+            <div>
+                <a onclick="setVectors()" class="showPointer"><input id="vectorsCheckbox" type="checkbox">
+                    Vectors</input></a>
+            </div>
+            <div>
+                <a onclick="setShowVisionRange()" class="showPointer"><input id="visionRangeCheckbox" type="checkbox">
+                    Vision range</input></a>
+            </div>
+            <div>
+                <a onclick="setVisualConnection()" class="showPointer"><input id="visualConnectionCheckbox"
+                        type="checkbox"> Visual connection</input></a>
+            </div>
+            <div>
+                <a onclick="setDying()" class="showPointer"><input id="dyingCheckbox" type="checkbox"> Dying</input></a>
+            </div>
+            <h2>Boids</h2>
+            <div>
+                <a onclick="setSeparation()" class="showPointer"><input id="separationCheckbox" type="checkbox">
+                    Separation</input></a>
+            </div>
+            <div>
+                <a onclick="setAlignment()" class="showPointer"><input id="alignmentCheckbox" type="checkbox">
+                    Alignment</input></a>
+            </div>
+            <div>
+                <a onclick="setCohesion()" class="showPointer"><input id="cohesionCheckbox" type="checkbox">
+                    Cohesion</input></a>
+            </div>
+            <div>
+                <a onclick="setAvoidCollision()" class="showPointer"><input id="collisionCheckbox" type="checkbox">
+                    Collisions</input></a>
+            </div>
         </div>
     </div>
-    <canvas id="c"></canvas>
+
+    <canvas id="c" onclick="onClickCanvas()"></canvas>
     <script src="script.js"></script>
 </body>
 

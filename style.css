@@ -11,13 +11,16 @@
   margin: 2rem;
 }
 
+.subpanel {
+  z-index: 100;
+}
+
 .infopanel {
   top: 0px;
   left: 0px;
 }
 
 .settingspanel {
-  position: absolute;
   bottom: 0px;
   flex-direction: column;
   flex: content;

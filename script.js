@@ -1,8 +1,12 @@
 var w = c.width = window.innerWidth;
 var h = c.height = window.innerHeight;
 
+var sizeRatio = 1;
+
 const ctx = c.getContext('2d');
 const infoPanel = document.getElementById('infoPanel');
+const settingsPanel = document.getElementById("settingsPanel");
+
 const sparkCheckbox = document.getElementById('sparkCheckbox');
 const blurCheckbox = document.getElementById('blurCheckbox');
 const vectorsCheckbox = document.getElementById('vectorsCheckbox');
@@ -15,6 +19,8 @@ const cohesionCheckbox = document.getElementById('cohesionCheckbox');
 const collisionCheckbox = document.getElementById('collisionCheckbox');
 const dyingCheckbox = document.getElementById('dyingCheckbox');
 
+
+
 const countInput = document.getElementById("targetSoulsInput");
 
 const fullCircle = 2.0 * Math.PI;
@@ -24,6 +30,7 @@ const quarterCircle = 0.5 * Math.PI;
 InitLinq();
 
 var opts = {
+  defaultLen: 30,
   len: 30,
   count: 250,
   baseTime: 30,
@@ -35,6 +42,7 @@ var opts = {
   sparkDist: 10,
   sparkSize: 2,
   soulSize: 3,
+  defaultVisionRange: 100,
   visionRange: 100,
 
   turnRadius: quarterCircle,
@@ -61,6 +69,7 @@ var turnOnVectors = false;
 var turnOnVisionRange = false;
 var turnOnVisualConnection = false;
 var turnOnDying = false;
+var turnOnPanel = true;
 blurCheckbox.checked = turnOnBlur;
 sparkCheckbox.checked = turnOnSpark;
 vectorsCheckbox.checked = turnOnVectors;
@@ -90,8 +99,21 @@ var lastLoopTime = 0;
 ctx.fillStyle = 'black';
 ctx.fillRect(0, 0, w, h);
 
+function fitSizeRatio() {
+  let smaller = w > h ? h : w;
+  sizeRatio = smaller / (1440);
+
+  opts.len = sizeRatio * opts.defaultLen;
+  opts.visionRange = sizeRatio * opts.defaultVisionRange;
+
+  dieX = w / 2 / opts.len;
+  dieY = h / 2 / opts.len;
+}
+
 function loop() {
   window.requestAnimationFrame(loop);
+
+  fitSizeRatio();
 
   tick++;
 
@@ -432,6 +454,22 @@ function setAvoidCollision() {
   console.log(`colisions => ${collision}`);
 }
 
+function onClickCanvas() {
+  showPanel();
+}
+
+function showPanel() {
+  turnOnPanel = !turnOnPanel;
+  if (turnOnPanel) {
+    settingsPanel.style.display = "";
+    infoPanel.style.display = "";
+  }
+  else {
+    settingsPanel.style.display = "none";
+    infoPanel.style.display = "none";
+  }
+}
+
 function InitLinq() {
   Array.prototype.Remove = function (obj) {
     let idx = this.indexOf(obj);
@@ -558,6 +596,8 @@ window.addEventListener('resize', function () {
 
   dieX = w / 2 / opts.len;
   dieY = h / 2 / opts.len;
+
+  fitSizeRatio();
 });
 
 loop();
