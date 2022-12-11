@@ -19,8 +19,6 @@ const cohesionCheckbox = document.getElementById('cohesionCheckbox');
 const collisionCheckbox = document.getElementById('collisionCheckbox');
 const dyingCheckbox = document.getElementById('dyingCheckbox');
 
-
-
 const countInput = document.getElementById("targetSoulsInput");
 
 const fullCircle = 2.0 * Math.PI;
@@ -63,7 +61,7 @@ var opts = {
 // init values
 countInput.value = opts.count;
 
-var turnOnBlur = true;
+var turnOnBlur = false;
 var turnOnSpark = true;
 var turnOnVectors = false;
 var turnOnVisionRange = false;
@@ -114,7 +112,7 @@ function loop() {
   window.requestAnimationFrame(loop);
 
   fitSizeRatio();
-
+  
   tick++;
 
   ctx.globalCompositeOperation = 'source-over';
@@ -132,10 +130,10 @@ function loop() {
 
   // calc stats
   let idx = tick % 100;
-  fpss[idx] = (1000 / (Date.now() - lastLoopTime));
+  fpss[idx] = (1000 / (performance.now() - lastLoopTime));
   fps = fpss.reduce((a, b) => a + b) / fpss.length;
-  lastLoopTime = Date.now();
-
+  lastLoopTime = performance.now();
+  
   // show stats
   var infoPanelRows = "";
   infoPanelRows += `<p>souls: ${souls.length}</p>`;
@@ -269,20 +267,20 @@ class Soul {
     }
 
     if (collision) {
-      let plusX = Math.pow(1 - (this.absoluteX / w), 2);
-      let minusX = Math.pow(this.absoluteX / w, 2);
+      let ratio = 0.2;
+      let dangerousDistance = Math.min(w * ratio, h * ratio);
 
-      let plusY = Math.pow(1 - (this.absoluteY / h), 2);
-      let minusY = Math.pow(this.absoluteY / h, 2);
+      // positive means you are close to border!
+      let pX = Math.max((this.absoluteX - (w - dangerousDistance))/dangerousDistance, 0);
+      let nX = Math.max(-(this.absoluteX - dangerousDistance)/dangerousDistance, 0);
+      let pY = Math.max((this.absoluteY - (h - dangerousDistance))/dangerousDistance, 0);
+      let nY = Math.max(-(this.absoluteY - dangerousDistance)/dangerousDistance, 0);
 
-      let vecX = plusX - minusX;
-      let vecY = plusY - minusY;
+      let vecX = nX - pX;
+      let vecY = nY - pY;
+
       let vecDist = Math.hypot(vecX, vecY);
-
-      let ratio = 0.7;
-      vecDist = plusX > ratio || plusY > ratio || minusX > ratio || minusY > ratio ? vecDist : 0; // rect
-      // vecDist = vecDist < 0.75 ? 0 : vecDist; // elipse
-
+      
       if (vecDist != 0) {
         // norm
         vecX /= vecDist;
